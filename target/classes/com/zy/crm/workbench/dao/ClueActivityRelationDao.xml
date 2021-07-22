@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.zy.crm.workbench.dao.ClueActivityRelationDao">
+
+    <delete id="deleteACRelation" >
+        delete from tbl_clue_activity_relation where id=#{id}
+    </delete>
+
+    <insert id="insertACRelation" >
+        insert into tbl_clue_activity_relation(id,clueId,activityId) values(#{id},#{clueId},#{activityId})
+    </insert>
+
+    <select id="selectRelationByClueId" resultType="ClueActivityRelation"  >
+        select * from tbl_clue_activity_relation where clueId = #{clueId}
+    </select>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.zy.crm.workbench.dao.CustomerDao">
+
+    <insert id="insertCustomerByName" >
+        insert into tbl_customer(
+        id,
+        owner,
+        name,
+        createBy,
+        createTime
+        ) values (
+            #{id},
+            #{owner},
+            #{name},
+            #{createBy},
+            #{createTime}
+        )
+    </insert>
+
+  	<select id="selectCusByName" resultType="Customer" >
+        select * from tbl_customer where name = #{company}
+    </select>
+
+    <insert id="insertCustomer" >
+        insert into tbl_customer(
+        id,
+        owner,
+        name,
+        website,
+        phone,
+        createBy,
+        createTime,
+        contactSummary,
+        nextContactTime,
+        description,
+        address) values (
+            #{id},
+            #{owner},
+            #{name},
+            #{website},
+            #{phone},
+            #{createBy},
+            #{createTime},
+            #{contactSummary},
+            #{nextContactTime},
+            #{description},
+            #{address}
+        )
+    </insert>
+
+    <select id="selectCustomerName" resultType="String" >
+        select name from tbl_customer where name like '%' #{name} '%'
+    </select>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.zy.crm.workbench.dao.ClueRemarkDao">
+	
+  	<select id="selectClueRemarkByClueId" resultType="ClueRemark" >
+        select * from tbl_clue_remark where clueId = #{clueId}
+    </select>
+
+    <delete id="deleteClueRemark" >
+        delete from tbl_clue_remark where Id=#{Id}
+    </delete>
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

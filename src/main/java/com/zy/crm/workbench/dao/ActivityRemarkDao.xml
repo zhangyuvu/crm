@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zy.crm.workbench.dao.ActivityRemarkDao">
+
+    <!--根据市场活动id查询所有市场活动备注的总条数-->
+    <select id="selectRemarkSize" resultType="int">
+        select count(*) from tbl_activity_remark where activityId in
+        <foreach collection="array" item="activityId" open="(" separator="," close=")" >
+            #{activityId}
+        </foreach>
+    </select>
+
+    <!--根据市场活动id删除市场活动备注-->
+    <delete id="deleteRemark" >
+        delete from tbl_activity_remark where activityId in
+        <foreach collection="array" item="activityId" open="(" separator="," close=")" >
+            #{activityId}
+        </foreach>
+    </delete>
+
+    <!--根据市场活动id查询市场活动备注-->
+    <select id="selectRemarkByAcId" resultType="ActivityRemark">
+        select * from tbl_activity_remark where activityId = #{id}
+    </select>
+
+    <delete id="deleteRemarkById" >
+        delete from tbl_activity_remark where id = #{id}
+    </delete>
+
+    <!--插入一条remark记录-->
+    <insert id="insertRemark" >
+        insert into tbl_activity_remark(id,noteContent,createTime,createBy,editFlag,activityId)
+        values (#{id},#{noteContent},#{createTime},#{createBy},#{editFlag},#{activityId})
+
+    </insert>
+
+    <select id="selectRemarkById" resultType="ActivityRemark">
+         select * from tbl_activity_remark where id = #{id}
+    </select>
+
+
+    <update id="updateRemark" >
+        update tbl_activity_remark set
+            noteContent = #{noteContent} ,
+            editTime = #{editTime},
+            editBy = #{editBy},
+            editFlag = #{editFlag}
+
+            where id = #{id}
+    </update>
+</mapper>
+

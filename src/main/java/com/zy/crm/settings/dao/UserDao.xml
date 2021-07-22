@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zy.crm.settings.dao.UserDao">
+
+    <!--登录的查询语句-->
+    <select id="selectUserLogin" resultType="User" >
+        select id
+            ,loginAct
+            ,name
+            ,loginPwd
+            ,email
+            ,expireTime
+            ,lockState
+            ,deptno
+            ,allowIps
+            ,createTime
+            ,createBy
+            ,editTime
+            ,editBy
+            from tbl_user
+            where loginAct = #{loginAct} and loginPwd = #{loginPwd}
+    </select>
+
+    <!--查询所有用户姓名信息-->
+    <select id="selectAllUser" resultType="User" >
+        select * from tbl_user
+    </select>
+
+    <select id="selectUserById" resultType="User" >
+        select * from tbl_user where id = #{id}
+    </select>
+</mapper>
+

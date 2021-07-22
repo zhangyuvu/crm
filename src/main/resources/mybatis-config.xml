@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+    <!--    设置别名 -->
+    <typeAliases>
+        <!--这个包下面的类名 就是该类的别名-->
+        <package name="com.zy.crm.settings.domain"/>
+        <package name="com.zy.crm.workbench.domain"/>
+    </typeAliases>
+
+    <!--配置pageHelper插件-->
+    <plugins>
+        <plugin interceptor="com.github.pagehelper.PageInterceptor">
+            <property name="dialet" value="mysql"/>
+        </plugin>
+    </plugins>
+    
+    <!--    指定sql映射文件的位置  -->
+    <mappers>
+        <package name="com.zy.crm.settings.dao"/>
+        <package name="com.zy.crm.workbench.dao"/>
+    </mappers>
+
+</configuration>

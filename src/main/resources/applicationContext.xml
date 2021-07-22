@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        https://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx.xsd">
+    <!--指定properties的位置信息-->
+    <context:property-placeholder location="classpath:jdbc.properties"/>
+    <!-- 配置数据源  -->
+    <bean id="myDataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
+        <property name="url" value="${jdbc.mysql.url}"/>
+        <property name="username" value="${jdbc.mysql.username}"/>
+        <property name="password" value="${jdbc.mysql.password}"/>
+        <property name="maxActive" value="${jdbc.mysql.maxActive}"/>    <!--最大连接数量-->
+    </bean>
+
+    <!--    配置SqlSessionFactory 利用SqlSessionFactoryBean类 来在其内部构造一个SqlSessionFactory-->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <!--        set注入 将druid连接池 赋给了dataSource这个属性  相当于在mybatis的配置文件中的environment声明了POOLED-->
+        <property name="dataSource" ref="myDataSource"/>
+        <!--读取mybatis的主配置文件  利用该类中的configLocation属性   来读取mybatis的主配置文件
+            configLocation属性是Resource类型的 是spring用来读取外部配置信息的
+        -->
+        <property name="configLocation" value="classpath:mybatis-config.xml"/>
+    </bean>
+
+    <!--    这个bean不用写id 这个MapperScannerConfigurer类会在内部调用getMapper() 生成每个dao对象-->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <!--        指定SqlSessionFactory的对象id-->
+
+        <!--       指定包名 MapperScannerConfigurer会扫描这个包中的所有接口 每个接口执行一次getMapper 得到所有接口的dao对象
+            最后将创建好的所有dao对象放入spring容器中 dao对象的默认名字就是首字母小写的接口名-->
+        <property name="basePackage" value="com.zy.crm.settings.dao"/>
+
+    </bean>
+    <!--    这个bean不用写id 这个MapperScannerConfigurer类会在内部调用getMapper() 生成每个dao对象-->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <!--        指定SqlSessionFactory的对象id-->
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+
+        <!--       指定包名 MapperScannerConfigurer会扫描这个包中的所有接口 每个接口执行一次getMapper 得到所有接口的dao对象
+            最后将创建好的所有dao对象放入spring容器中 dao对象的默认名字就是首字母小写的接口名-->
+        <property name="basePackage" value="com.zy.crm.workbench.dao"/>
+
+    </bean>
+
+    <!--注册事务管理器-->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager" >
+        <!--连接的数据库，指定数据源-->
+    <property name="dataSource" ref="myDataSource" />
+    </bean>
+
+        <!--  spring自己的aop事务管理功能  -->
+        <!--开启事务注解驱动，告诉spring使用注解管理事务
+        在service类中的public方法上直接使用@Transactional注解就可以开启事务-->
+    <tx:annotation-driven transaction-manager="transactionManager" />
+
+
+    <!--组件扫描器-->
+    <context:component-scan base-package="com.zy.crm.settings.service" />
+    <context:component-scan base-package="com.zy.crm.workbench.service" />
+    <context:component-scan base-package="com.zy.crm.utils" />
+
+</beans>
