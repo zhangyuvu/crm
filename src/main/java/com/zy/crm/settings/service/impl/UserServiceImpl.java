@@ -10,8 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.annotation.Resource;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author zy
@@ -72,5 +71,35 @@ public class UserServiceImpl implements UserService {
 
         User user = userDao.selectUserById(id);
         return user;
+    }
+
+    /**
+     * @description 给定领导 id 获取员工信息
+     */
+    @Override
+    public List<User> getEmp(String directorId) {
+        // 检查
+        if(directorId == null) return new ArrayList<>();
+
+        // 队列
+        Queue<User> qu = new LinkedList<>();
+        List<User> list = userDao.getEmp(directorId);
+
+        list.forEach(user -> qu.offer(user)); // 填充到qu中
+
+
+        while(!qu.isEmpty()){
+            User cur = qu.poll();       // 得到每一个user
+            String dId = cur.getId();   // 获取员工id
+            List<User> tmp = userDao.getEmp(dId);    // 利用该员工id获取他的员工
+            tmp.forEach(user -> {
+                if(!list.contains(user)){   // equals
+                    qu.offer(user);
+                    list.add(user);
+                }
+            }); // 再把所有的员工
+        }
+
+        return list;    // 返回所有员工
     }
 }

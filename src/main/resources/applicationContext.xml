@@ -31,15 +31,6 @@
     <!--    这个bean不用写id 这个MapperScannerConfigurer类会在内部调用getMapper() 生成每个dao对象-->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
         <!--        指定SqlSessionFactory的对象id-->
-
-        <!--       指定包名 MapperScannerConfigurer会扫描这个包中的所有接口 每个接口执行一次getMapper 得到所有接口的dao对象
-            最后将创建好的所有dao对象放入spring容器中 dao对象的默认名字就是首字母小写的接口名-->
-        <property name="basePackage" value="com.zy.crm.settings.dao"/>
-
-    </bean>
-    <!--    这个bean不用写id 这个MapperScannerConfigurer类会在内部调用getMapper() 生成每个dao对象-->
-    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <!--        指定SqlSessionFactory的对象id-->
         <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
 
         <!--       指定包名 MapperScannerConfigurer会扫描这个包中的所有接口 每个接口执行一次getMapper 得到所有接口的dao对象

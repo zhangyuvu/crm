@@ -17,4 +17,7 @@ public interface UserDao {
 
     // 根据id差user
     User selectUserById(String id);
+
+    // 根据领导id获取员工信息
+    List<User> getEmp(String directorId);
 }

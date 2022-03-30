@@ -19,5 +19,6 @@ public interface UserService {
     // 根据acId查询用户（owner
     User getUserById(String id);
 
-
+    // 依据领导id获取员工信息
+    List<User> getEmp(String directorId);
 }

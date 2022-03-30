@@ -19,6 +19,12 @@ public class User {
     private String editTime;    // 修改时间 19位
     private String editBy;    // 修改人
 
+    private String directorId;  // 主管id
+
+    public String getDirectorId(){
+        return directorId;
+    }
+
     public User() {
     }
 

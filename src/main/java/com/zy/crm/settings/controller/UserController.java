@@ -47,5 +47,17 @@ public class UserController {
     }
 
 
+    //   获取自己的所有员工
 
+
+    /**
+     * @description 依据领导id获取员工信息
+     * @param  directorId 领导id
+     * @return  所有员工
+     */
+    @RequestMapping("/getEmpList")
+    @ResponseBody
+    public List<User> getEmp(String directorId){
+        return userService.getEmp(directorId);
+    }
 }

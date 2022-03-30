@@ -27,6 +27,7 @@
     <!--加入该驱动 会在容器中生成处理消息的八个类 没有加入之前只有四个类-->
     <!--想要使用静态资源 这个标签必须有-->
     <mvc:annotation-driven/><!--这个标签可以解决下面这两种控制静态资源文件访问的标签和@RequestMapping的冲突 -->
+
     <!--这个标签常用于解决静态资源文件访问的问题 框架会创建一个ResourceHttpRequestHandler处理器对象，专门处理静态资源文件的访问 不依赖服务器-->
 <!--    <mvc:resources mapping="/static/**" location="/static/" />&lt;!&ndash;将所有的静态资源文件放入static文件夹 可以解决多种静态资源的访问&ndash;&gt;-->
 
